@@ -57,8 +57,14 @@
     header.nav {
       position: fixed; inset: 0 0 auto 0; height: 72px; z-index: 20;
       display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
-      background: rgba(7, 11, 20, .78); backdrop-filter: blur(12px);
       transition: box-shadow .25s var(--ease), transform .25s var(--ease);
+    }
+    /* The blur lives on a layer behind the bar. A backdrop-filter on the bar itself
+       would trap the fixed phone menu inside the bar's 72px height. */
+    header.nav::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: rgba(7, 11, 20, .78);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
     header.nav.scrolled { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .7); }
     .logo {
@@ -239,7 +245,10 @@
       #site-menu ol { flex-direction: column; gap: 30px; text-align: center; }
       #site-menu ol li { font-size: 16px; }
       #site-menu ol li a::before { display: block; margin-bottom: 4px; }
-      .scrim.show { display: block; position: fixed; inset: 0; z-index: 34; background: rgba(0, 0, 0, .45);
+      #site-menu ol li a:not(.btn) { display: block; padding: 8px 32px; }   /* one solid, thumb-sized tap target */
+      #site-menu ol li a.btn { padding: 15px 34px; font-size: 14px; }
+      /* Below the header (z 20), so the menu inside the header sits on top of it */
+      .scrim.show { display: block; position: fixed; inset: 0; z-index: 19; background: rgba(0, 0, 0, .45);
                     backdrop-filter: blur(3px); }
       body.menu-open { overflow: hidden; }
       .jobs { padding: 22px; }
