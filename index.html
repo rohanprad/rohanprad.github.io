@@ -175,6 +175,10 @@
     /* ---------- Featured project ---------- */
     /* Side by side, no overlap: the dashboard screenshot is the thing to see */
     .feature { display: grid; grid-template-columns: 7fr 5fr; gap: 44px; align-items: center; }
+    .feature + .feature { margin-top: 110px; }
+    /* Zig-zag: every second project puts its image on the right */
+    .feature.flip { grid-template-columns: 5fr 7fr; }
+    .feature.flip .img { order: 2; }
     .feature .img {
       display: block; border-radius: 12px; overflow: hidden;
       border: 1px solid var(--line); box-shadow: 0 24px 48px -20px rgba(0, 0, 0, .75);
@@ -229,7 +233,9 @@
       .side { display: none; }
       footer .social { display: flex; }
       .about { grid-template-columns: 1fr; }
-      .feature { grid-template-columns: 1fr; gap: 28px; }
+      .feature, .feature.flip { grid-template-columns: 1fr; gap: 28px; }
+      .feature.flip .img { order: 0; }            /* image always on top on phones */
+      .feature + .feature { margin-top: 72px; }
     }
     @media (max-width: 640px) {
       main { padding: 0 24px; }
@@ -387,6 +393,25 @@
         <div class="links">
           <a href="https://github.com/rohanprad/hm-markdown-optimisation" target="_blank" rel="noopener">Project write-up ↗</a>
           <a href="https://github.com/rohanprad/hm-markdown-optimisation/tree/main/sql" target="_blank" rel="noopener">SQL ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <a class="img" href="https://github.com/rohanprad/fraud-sql-analysis" target="_blank" rel="noopener" aria-label="Fraud review prioritisation project on GitHub">
+        <img src="assets/fraud-value-capture.png" alt="Chart: reviewing the 5% of transactions with the most money at risk catches 47% of fraud value" width="1200" height="744" loading="lazy">
+      </a>
+      <div class="txt">
+        <p class="overline">Featured project</p>
+        <h3><a href="https://github.com/rohanprad/fraud-sql-analysis" target="_blank" rel="noopener">Which transactions should a fraud team review first?</a></h3>
+        <div class="desc">
+          <p>Using 590,000 real card transactions, I measured warning signs like product type, device and overnight activity, and turned them into a risk score tested on months it had never seen.</p>
+          <p>Ranking by <strong>money at risk</strong> instead of chance of fraud alone meant <span class="hl">reviewing 5% of transactions caught 47% of fraud value</span>, about $387k.</p>
+        </div>
+        <ul class="stack"><li>SQL</li><li>BigQuery</li><li>Python</li><li>Risk scoring</li></ul>
+        <div class="links">
+          <a href="https://github.com/rohanprad/fraud-sql-analysis" target="_blank" rel="noopener">Project write-up ↗</a>
+          <a href="https://github.com/rohanprad/fraud-sql-analysis/tree/main/sql" target="_blank" rel="noopener">SQL ↗</a>
         </div>
       </div>
     </article>
